@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Prostate Play Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .step {
+            background: rgba(255,255,255,0.15);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .step h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+        
+        .step p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .secondary-btn {
+            background: linear-gradient(45deg, #74b9ff, #0984e3) !important;
+        }
+        
+        .secondary-btn:hover {
+            background: linear-gradient(45deg, #0984e3, #74b9ff) !important;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .sensation-tracker {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .intensity-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .tips {
+            background: rgba(255,215,0,0.2);
+            border-left: 4px solid #ffd700;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .warning {
+            background: rgba(255,107,107,0.2);
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .celebration {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .emoji {
+            font-size: 2em;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍑 Interactive Prostate Play Guide 🍑</h1>
+            <p class="subtitle">Discover incredible sensations your body is capable of</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Step 1: Introduction -->
+        <div class="step active" id="step1">
+            <h2>🚀 Welcome to Your Journey</h2>
+            <p>You're about to discover something most guys never experience - incredible full-body orgasms that come from stimulating your prostate. This isn't just about pleasure (though it's amazing) - it's also great for your health!</p>
+            
+            <div class="tips">
+                <strong>💡 What You'll Discover:</strong><br>
+                • Hands-free orgasms without touching your dick<br>
+                • Multiple orgasms in one session<br>
+                • Full-body sensations that last way longer than regular orgasms<br>
+                • Better prostate health and stronger erections
+            </div>
+            
+            <p>This guide will walk you through everything step-by-step, just like having an experienced coach right there with you.</p>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">Let's Begin! 🎯</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Preparation -->
+        <div class="step" id="step2">
+            <h2>🛁 Getting Ready</h2>
+            <p>Proper preparation makes all the difference between frustration and incredible success. Take your time with this - rushing is the biggest mistake guys make.</p>
+            
+            <div class="tips">
+                <strong>🧼 Essential Prep:</strong><br>
+                • Take a warm shower to relax and get clean<br>
+                • Use the bathroom beforehand<br>
+                • Get your high-quality water-based lube ready<br>
+                • Set up towels and get comfortable<br>
+                • Make sure you have privacy and time (at least an hour)
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Critical:</strong> Never rush this! Prostate play is about patience and building sensations slowly. Your body needs time to relax and respond.
+            </div>
+            
+            <p>Are you in a comfortable, private space with everything you need?</p>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">Yes, I'm Ready 🛁</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Understanding Your Anatomy -->
+        <div class="step" id="step3">
+            <h2>🎯 Finding Your Target</h2>
+            <p>Your prostate is a walnut-sized gland about 2-3 inches inside your ass, toward your belly. When stimulated properly, it creates sensations unlike anything else.</p>
+            
+            <div class="tips">
+                <strong>🔍 What to Look For:</strong><br>
+                • It feels slightly firmer and more textured than the smooth walls around it<br>
+                • When you find it, you'll feel a different sensation - maybe like you need to pee<br>
+                • Don't worry if it feels weird at first - that's totally normal<br>
+                • The right pressure creates deep, warm sensations that spread outward
+            </div>
+            
+            <p>Think of your prostate as your body's secret pleasure center. Most guys never discover it, but once you do, you'll understand what you've been missing.</p>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">I Understand My Anatomy 🎯</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 4: First Contact -->
+        <div class="step" id="step4">
+            <h2>🤏 Getting Started</h2>
+            <p>Start by getting yourself relaxed and aroused. Maybe touch yourself normally to get your body responding, then begin external massage around your asshole.</p>
+            
+            <div class="tips">
+                <strong>👆 Finger Technique:</strong><br>
+                • Use LOTS of lube - way more than you think you need<br>
+                • Start with gentle circles around the outside<br>
+                • Slowly insert one well-lubed finger<br>
+                • Let your body adjust - no rushing!<br>
+                • Explore gently until you find that firmer spot
+            </div>
+            
+            <p>Once you find your prostate with your finger, try gentle pressure and massage. This "warms up" your prostate before using your toy.</p>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">Found It! 🎯</button>
+                <button onclick="showTroubleshooting('finger')">Having Trouble Finding It? 🤔</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Toy Time -->
+        <div class="step" id="step5">
+            <h2>🍆 Introducing Your Toy</h2>
+            <p>Now for the real fun! Your curved prostate toy is designed to hit exactly the right spot with perfect pressure. The difference from fingers is incredible.</p>
+            
+            <div class="tips">
+                <strong>🛠️ Insertion Technique:</strong><br>
+                • Lube the toy generously, especially the tip<br>
+                • Add more lube to yourself too<br>
+                • Insert slowly, letting your body stretch and accommodate<br>
+                • The curved part should press against your prostate<br>
+                • The base should sit comfortably between your ass cheeks
+            </div>
+            
+            <p>Once it's in position, you should feel constant, gentle pressure against your prostate. Don't move it yet - just get used to the sensation.</p>
+            
+            <div class="sensation-tracker">
+                <strong>What are you feeling right now?</strong><br>
+                <input type="range" min="0" max="10" value="0" class="intensity-slider" id="insertionIntensity" onchange="updateIntensity('insertion', this.value)">
+                <br><span id="insertionFeedback">Move the slider to match your sensation level</span>
+            </div>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">It's In Position! 🎯</button>
+                <button onclick="showTroubleshooting('insertion')">Need Help? 🤔</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Building Sensations -->
+        <div class="step" id="step6">
+            <h2>🌊 Creating the Waves</h2>
+            <p>Here's where the magic happens! Instead of thrusting like a dildo, you're going to use muscle contractions to massage your prostate.</p>
+            
+            <div class="tips">
+                <strong>💪 The Technique:</strong><br>
+                • Gently contract your ass muscles around the toy<br>
+                • Hold for a few seconds, then release<br>
+                • This pushes the toy more firmly against your prostate<br>
+                • Try different rhythms - slow and steady works best<br>
+                • Focus on the sensations, not the outcome
+            </div>
+            
+            <p>You might also feel the urge to rock your hips gently. Go with it! Your body knows what feels good.</p>
+            
+            <div class="sensation-tracker">
+                <strong>How intense are the sensations now?</strong><br>
+                <input type="range" min="0" max="10" value="0" class="intensity-slider" id="contractionsIntensity" onchange="updateIntensity('contractions', this.value)">
+                <br><span id="contractionsFeedback">Are you feeling warmth and pressure building?</span>
+            </div>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">Feeling Great Sensations! 🌊</button>
+                <button onclick="showTroubleshooting('sensations')">Not Feeling Much? 🤔</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 7: The Zone -->
+        <div class="step" id="step7">
+            <h2>🧘 Entering the Zone</h2>
+            <p>As you continue those gentle contractions, you should start feeling warmth spreading from your prostate. This is when things get really interesting!</p>
+            
+            <div class="tips">
+                <strong>🔥 What to Expect:</strong><br>
+                • Warmth radiating through your pelvis<br>
+                • Your dick getting hard without touching it<br>
+                • Breathing getting heavier<br>
+                • Maybe some shaking in your arms or legs<br>
+                • An urge to rock or move more
+            </div>
+            
+            <p>This is the meditative phase - like growing a glowing egg of warmth inside you. Stay present with the sensations and let them build naturally.</p>
+            
+            <div class="sensation-tracker">
+                <strong>Rate your current experience:</strong><br>
+                <input type="range" min="0" max="10" value="0" class="intensity-slider" id="zoneIntensity" onchange="updateIntensity('zone', this.value)">
+                <br><span id="zoneFeedback">Are you feeling that warm, spreading sensation?</span>
+            </div>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">I'm in the Zone! 🧘</button>
+                <button onclick="showTroubleshooting('zone')">Still Building Up 🤔</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 8: Peak Sensations -->
+        <div class="step" id="step8">
+            <h2>🚀 Approaching Peak</h2>
+            <p>You're building toward something incredible! Your body might be shaking, you're probably rock hard, and those waves of pleasure are getting more intense.</p>
+            
+            <div class="tips">
+                <strong>🎆 Signs You're Close:</strong><br>
+                • Whole body trembling or vibrating<br>
+                • Intense warmth spreading everywhere<br>
+                • Feeling like you're being fucked from the inside<br>
+                • Breathing getting really heavy<br>
+                • Sensations feeling almost overwhelming
+            </div>
+            
+            <p>Don't fight the intensity - breathe through it and let your body take over. This is when the most incredible orgasms happen!</p>
+            
+            <div class="sensation-tracker">
+                <strong>How intense is it getting?</strong><br>
+                <input type="range" min="0" max="10" value="0" class="intensity-slider" id="peakIntensity" onchange="updateIntensity('peak', this.value)">
+                <br><span id="peakFeedback">Can you feel yourself building toward something amazing?</span>
+            </div>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">It's Getting Incredibly Intense! 🚀</button>
+                <button onclick="showTroubleshooting('peak')">Need Encouragement 💪</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 9: Climax -->
+        <div class="step" id="step9">
+            <h2>💥 Let It Happen!</h2>
+            <p>You're right on the edge! Let that energy explode through your entire body. Don't hold back - surrender completely to the sensations!</p>
+            
+            <div class="celebration">
+                <h3>🎉 INCREDIBLE! 🎉</h3>
+                <p>You're experiencing what most guys never discover - pure prostate bliss!</p>
+                <div class="emoji">🌟💫⭐🔥💥</div>
+            </div>
+            
+            <div class="tips">
+                <strong>🌊 Ride the Waves:</strong><br>
+                • Let your body shake and move however it wants<br>
+                • Keep breathing deeply<br>
+                • Don't try to control anything<br>
+                • These waves can last 30+ seconds<br>
+                • You might cum hands-free - that's incredible!
+            </div>
+            
+            <p>Just experienced your first prostate orgasm? AMAZING! Your body just discovered what it's truly capable of!</p>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">Holy Fuck That Was Incredible! 🤯</button>
+                <button onclick="showTroubleshooting('almostthere')">Almost There! 💪</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 10: Multiple Orgasms -->
+        <div class="step" id="step10">
+            <h2>🔄 Ready for Round Two?</h2>
+            <p>Here's the amazing thing about prostate orgasms - you can often have multiple ones! Your prostate doesn't need recovery time like your dick usually does.</p>
+            
+            <div class="tips">
+                <strong>🎯 Going for More:</strong><br>
+                • Keep the toy in position<br>
+                • Let your body settle for a few minutes<br>
+                • Start those gentle contractions again<br>
+                • The second one often builds faster<br>
+                • It might be a "dry" orgasm - still incredible!
+            </div>
+            
+            <p>Some guys can have 3, 4, or even more prostate orgasms in one session. Your body will tell you what it's capable of!</p>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">Going for Another! 🔄</button>
+                <button onclick="nextStep()">I'm Satisfied for Now 😊</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 11: Health Benefits -->
+        <div class="step" id="step11">
+            <h2>💪 Amazing Health Benefits</h2>
+            <p>What you just experienced isn't just incredible pleasure - it's actually really good for your body!</p>
+            
+            <div class="tips">
+                <strong>🏥 Health Benefits:</strong><br>
+                • Better blood flow to your prostate<br>
+                • Stronger pelvic floor muscles (better erections!)<br>
+                • Stress relief and mood boost<br>
+                • Improved urinary function<br>
+                • May reduce prostate cancer risk<br>
+                • Natural prostate "flushing"
+            </div>
+            
+            <div class="warning">
+                <strong>🗓️ Frequency Recommendations:</strong><br>
+                To maintain sensitivity: Every 2 weeks to monthly<br>
+                For health benefits: Weekly might be optimal<br>
+                Listen to your body and find your balance!
+            </div>
+            
+            <div class="buttons">
+                <button onclick="nextStep()">Great to Know! 💪</button>
+                <button class="secondary-btn" onclick="prevStep()">Go Back</button>
+            </div>
+        </div>
+
+        <!-- Step 12: Conclusion -->
+        <div class="step" id="step12">
+            <h2>🎊 Congratulations!</h2>
+            
+            <div class="celebration">
+                <h3>🏆 YOU DID IT! 🏆</h3>
+                <p>You've discovered something most men never experience!</p>
+                <div class="emoji">🎉🍾✨🌟💫</div>
+            </div>
+            
+            <p>You've just unlocked a whole new dimension of pleasure and sexual health. What you experienced tonight - those incredible sensations, multiple orgasms, hands-free climax - that's always been possible with your body. You just needed the right guidance to discover it!</p>
+            
+            <div class="tips">
+                <strong>🔮 What's Next:</strong><br>
+                • Remember: patience and the right technique are key<br>
+                • Space out sessions to maintain sensitivity<br>
+                • Each experience might be different - that's normal!<br>
+                • You now know what your body is capable of<br>
+                • Share this knowledge (discretely) with other curious guys!
+            </div>
+            
+            <p>Most importantly - you should feel proud of yourself for being open to exploring and discovering something incredible about your sexuality. Not everyone has the courage to try something new!</p>
+            
+            <div class="buttons">
+                <button onclick="restart()">Start Over for a Friend 🤝</button>
+                <button onclick="showFAQ()">Common Questions ❓</button>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="step" id="faq">
+            <h2>❓ Frequently Asked Questions</h2>
+            
+            <div class="tips">
+                <strong>Q: Does this make me gay?</strong><br>
+                A: Absolutely not! This is about anatomy and nerve endings. Straight guys have the same prostate and capacity for pleasure. Sexual orientation is about who you're attracted to, not what feels good to your body.
+            </div>
+            
+            <div class="tips">
+                <strong>Q: What if I can't achieve orgasm?</strong><br>
+                A: Totally normal! Some guys need multiple sessions to build that mind-body connection. The key is patience and not putting pressure on yourself. Even just feeling good sensations is progress!
+            </div>
+            
+            <div class="tips">
+                <strong>Q: How often is safe?</strong><br>
+                A: Weekly is probably fine for health benefits, but every 2 weeks to monthly preserves sensitivity better. Listen to your body and adjust based on how intense each session remains.
+            </div>
+            
+            <div class="tips">
+                <strong>Q: Will I lose sensitivity from my dick?</strong><br>
+                A: Nope! These are different pleasure pathways. Many guys find prostate play actually improves their regular sexual function.
+            </div>
+            
+            <div class="buttons">
+                <button onclick="restart()">Back to Guide 🏠</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 12;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showStep(stepNum) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('step' + stepNum).classList.add('active');
+            updateProgress();
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function restart() {
+            currentStep = 1;
+            showStep(currentStep);
+        }
+
+        function showFAQ() {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById('faq').classList.add('active');
+        }
+
+        function updateIntensity(type, value) {
+            const feedbacks = {
+                insertion: [
+                    "No sensation yet - that's normal, take your time",
+                    "Starting to feel something - good!",
+                    "Feeling pressure - you're on the right track",
+                    "Definite sensations - excellent!",
+                    "Building intensity - keep going",
+                    "Good pressure and warmth - perfect",
+                    "Strong sensations developing",
+                    "Intense pressure - amazing progress",
+                    "Really strong sensations now",
+                    "Incredible intensity building",
+                    "Mind-blowing sensations - you've got it!"
+                ],
+                contractions: [
+                    "Keep practicing those contractions",
+                    "Starting to feel the difference",
+                    "Pressure building nicely",
+                    "Good sensations developing",
+                    "Warmth starting to spread",
+                    "Great progress - keep going",
+                    "Strong sensations building",
+                    "Excellent - feeling the waves",
+                    "Incredible intensity now",
+                    "Almost there - amazing!",
+                    "Perfect - you're in the zone!"
+                ],
+                zone: [
+                    "Keep building those sensations",
+                    "Starting to feel warmth",
+                    "Sensations spreading nicely",
+                    "Getting into the zone",
+                    "Warmth radiating outward",
+                    "Great progress - body responding",
+                    "Strong waves developing",
+                    "Excellent - feeling incredible",
+                    "Amazing intensity building",
+                    "Almost at peak - fantastic!",
+                    "Perfect - you're there!"
+                ],
+                peak: [
+                    "Keep building - you're doing great",
+                    "Intensity increasing",
+                    "Getting closer to something amazing",
+                    "Body starting to respond strongly",
+                    "Incredible sensations building",
+                    "Almost there - don't give up",
+                    "So close to breakthrough",
+                    "Incredible intensity - nearly there",
+                    "About to experience something amazing",
+                    "Right on the edge - let it happen",
+                    "Perfect - surrender to it completely!"
+                ]
+            };
+
+            const feedbackElement = document.getElementById(type + 'Feedback');
+            if (feedbackElement && feedbacks[type]) {
+                feedbackElement.textContent = feedbacks[type][value];
+                
+                if (value >= 8) {
+                    feedbackElement.style.color = '#ffd700';
+                    feedbackElement.style.fontWeight = 'bold';
+                } else if (value >= 5) {
+                    feedbackElement.style.color = '#ff6b6b';
+                } else {
+                    feedbackElement.style.color = '#fff';
+                    feedbackElement.style.fontWeight = 'normal';
+                }
+            }
+        }
+
+        function showTroubleshooting(type) {
+            const messages = {
+                finger: "💡 Troubleshooting: Try different angles, use more lube, and make sure you're relaxed. Your prostate might be slightly higher or lower than expected. Take your time exploring!",
+                insertion: "💡 Troubleshooting: Make sure you're using enough lube and going slowly. If it's uncomfortable, take a break and try again when more relaxed. The toy should slide in smoothly.",
+                sensations: "💡 Troubleshooting: Try varying your contraction rhythm. Some guys need longer holds, others prefer quick pulses. Make sure the toy is positioned correctly against your prostate.",
+                zone: "💡 Troubleshooting: This can take 15-30 minutes to develop. Stay patient and keep those gentle contractions going. Focus on breathing and staying relaxed.",
+                peak: "💡 Troubleshooting: Don't try to force it! Let the sensations build naturally. Sometimes backing off slightly and building again works better than pushing harder.",
+                almostthere: "💡 You're SO close! Don't give up now. Breathe deeply, keep those contractions going, and let your body take over. The breakthrough is coming!"
+            };
+            
+            const message = messages[type] || "Keep going - you're doing great!";
+            
+            // Create a better looking alert
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(45deg, #667eea, #764ba2);
+                color: white;
+                padding: 25px;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                max-width: 400px;
+                text-align: center;
+                z-index: 1000;
+                border: 2px solid rgba(255,255,255,0.3);
+            `;
+            
+            alertDiv.innerHTML = `
+                <p style="margin-bottom: 15px; font-size: 1.1em;">${message}</p>
+                <button onclick="this.parentElement.remove()" style="
+                    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">Got It! 👍</button>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            // Auto-remove after 10 seconds
+            setTimeout(() => {
+                if (alertDiv.parentElement) {
+                    alertDiv.remove();
+                }
+            }, 10000);
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>
